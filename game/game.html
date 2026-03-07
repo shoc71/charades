@@ -8,26 +8,156 @@
 </head>
 <body>
     <main>
-        <div class="title">
+        <div class="title" style="margin-bottom: 100px;">
             <h1>GameTime</h1>
+        </div>
+
+        <div class="" style="margin-bottom: 100px;">
+            <h2 id="teamTurn"></h2>
+        </div>
+
+        <div id="wordDisplay" style="margin-bottom: 50px; font-size: 50px;"></div>
+
+        <div id="timerDisplay" style="margin-bottom: 50px;"></div>
+
+        <div class="" >
+            <button id="easyBtn">Easy</button>
+            <button id="hardBtn">Hard</button>
+        </div>
+        <div class="" style="margin: 15px;">
+            <button id="playBtn">Play</button>
+            <button id="skipBtn">Skip</button>
         </div>
     </main>
     
     <script>
-        const team1 = localStorage.getItem("team1");
-        const team2 = localStorage.getItem("team2");
+        const team1 = localStorage.getItem("team1") || "Team 1";
+        const team2 = localStorage.getItem("team2") || "Team 2";
+        const timer = localStorage.getItem("timer") || 60;
+        const round = 3;
 
-        if (team1) {
-            document.getElementById("temp").textContent = team1;
+        let score1 = parseInt(localStorage.getItem("score1")) || 0;
+        let score2 = parseInt(localStorage.getItem("score2")) || 0;
+
+        let currentTeam = parseInt(localStorage.getItem("currentTeam")) || 1;
+
+        let currentDifficulty = "easy";
+
+        const easyWords = [
+            "Dog",
+            "Cat",
+            "Pizza",
+            "Swimming",
+            "Sleeping",
+            "Driving"
+        ];
+
+        const hardWords = [
+            "Titanic",
+            "Jurassic Park",
+            "Harry Potter",
+            "Spider-Man",
+            "The Matrix"
+        ];
+
+        const wordDisplay = document.getElementById("wordDisplay");
+        const timerDisplay = document.getElementById("timerDisplay");
+        const teamTurn = document.getElementById("teamTurn");
+        const easyBtn = document.getElementById("easyBtn");
+        const hardBtn = document.getElementById("hardBtn");
+        const skipBtn = document.getElementById("skipBtn");
+        const playBtn = document.getElementById("playBtn");
+
+        if (!team1) { localStorage.setItem(team1, 't1') };
+        if (!team2) { localStorage.setItem(team2, 't2') };
+
+        timerDisplay.textContent = timer;
+        timerDisplay.style.fontSize = "45px";
+
+        // playBtn.style.display = "none";
+        playBtn.style.fontSize = "75px"
+        playBtn.style.paddingLeft = "25px";
+        playBtn.style.paddingRight = "25px";
+        playBtn.style.paddingTop = "5px";
+        playBtn.style.paddingBottom = "5px";
+
+        skipBtn.style.display = "none";
+        skipBtn.style.fontSize = "75px"
+        skipBtn.style.paddingLeft = "25px";
+        skipBtn.style.paddingRight = "25px";
+        skipBtn.style.paddingTop = "5px";
+        skipBtn.style.paddingBottom = "5px";
+
+        if (currentTeam === 1) {
+            teamTurn.textContent = team1 + "'s Turn";
         } else {
-            localStorage.setItem(team1, 't1')
+            teamTurn.textContent = team2 + "'s Turn";
         }
-        
-        if (team2) {
-            document.getElementById("temp").textContent = team1;
-        } else {
-            localStorage.setItem(team2, 't2')
+
+        function getRandomWord(list) {
+            return list[Math.floor(Math.random() * list.length)];
         }
+
+        function showWord() {
+            let word;
+            if (currentDifficulty === "easy") {
+                word = getRandomWord(easyWords);
+            } else {
+                word = getRandomWord(hardWords);
+            }
+            wordDisplay.textContent = word;
+        }
+
+        easyBtn.addEventListener("click", () => {
+            showWord(easyWords);
+        });
+
+        hardBtn.addEventListener("click", () => {
+            showWord(hardWords);
+        });
+
+        playBtn.addEventListener("click", () => {
+            startTimer();
+
+            playBtn.style.display = "none";
+            skipBtn.style.display = "inline";
+        });
+
+        let timeLeft = timer;
+
+        function startTimer(){
+
+            let timeLeft = timer;
+
+            const interval = setInterval(() => {
+
+                timeLeft--;
+                timerDisplay.textContent = timeLeft;
+
+                if(timeLeft <= 0){
+
+                    clearInterval(interval);
+
+                    if(currentTeam === 1){
+                        score1++;
+                        currentTeam = 2;
+                    }else{
+                        score2++;
+                        currentTeam = 1;
+                    }
+
+                    localStorage.setItem("score1", score1);
+                    localStorage.setItem("score2", score2);
+                    localStorage.setItem("currentTeam", currentTeam);
+
+                    window.location.href = "score.html";
+
+                }
+
+            },1000);
+
+        }
+
     </script>
 </body>
 </html>

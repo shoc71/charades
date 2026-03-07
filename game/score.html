@@ -3,9 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./score.css">
     <title>Score</title>
 </head>
 <body>
-    
+
+    <h1>Score Board</h1>
+
+    <h2 id="team1Score"></h2>
+    <h2 id="team2Score"></h2>
+
+    <button id="nextRound">Next Round</button>
+
+    <script>
+        const team1 = localStorage.getItem("team1") || "Team 1";
+        const team2 = localStorage.getItem("team2") || "Team 2";
+
+        const score1 = localStorage.getItem("score1") || 0;
+        const score2 = localStorage.getItem("score2") || 0;
+
+        document.getElementById("team1Score").textContent =
+        team1 + ": " + score1;
+
+        document.getElementById("team2Score").textContent =
+        team2 + ": " + score2;
+
+        document.getElementById("nextRound").addEventListener("click", () => {
+
+            window.location.href = "game.html";
+
+        });
+
+    </script>
 </body>
 </html>

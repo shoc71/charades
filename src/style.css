@@ -1,0 +1,12 @@
+body {
+    background-color: rgb(253, 170, 184);
+    text-align: center;
+}
+
+#start {
+    background-color: aquamarine;
+    border-radius: 12px;
+    padding: 20px 40px;
+    font-size: 24px;
+    cursor: pointer;
+}

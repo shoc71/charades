@@ -1,284 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./game.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./game.css" />
     <title>Gametime</title>
-</head>
-<body>
+  </head>
+  <body>
     <main>
-        <div class="title" style="margin-bottom: 100px;">
-            <h1>GameTime</h1>
-        </div>
+      <div class="title" style="margin-bottom: 25px">
+        <h1>GameTime</h1>
+      </div>
 
-        <div class="" style="margin-bottom: 100px;">
-            <h2 id="teamTurn"></h2>
-        </div>
+      <div class="" style="margin-bottom: 50px">
+        <h2 id="teamTurn"></h2>
+      </div>
 
-        <div id="wordDisplay" style="margin-bottom: 50px; font-size: 50px;"></div>
+      <div id="wordDisplay" style="margin-bottom: 50px; font-size: 50px"></div>
 
-        <div id="timerDisplay" style="margin-bottom: 50px;"></div>
+      <div id="timerDisplay" style="margin-bottom: 25px"></div>
 
-        <div class="" >
-            <button id="easyBtn">Easy</button>
-            <button id="hardBtn">Hard</button>
-        </div>
-        <div class="" style="margin: 15px;">
-            <button id="playBtn">Play</button>
-            <button id="skipBtn">Skip</button>
-        </div>
+      <div class="">
+        <button id="easyBtn">Easy</button>
+        <button id="hardBtn">Hard</button>
+      </div>
+      <div class="" style="margin: 15px">
+        <button id="playBtn">Play</button>
+        <button id="skipBtn">Skip</button>
+      </div>
     </main>
-    
-    <script>
-        const team1 = localStorage.getItem("team1") || "Team 1";
-        const team2 = localStorage.getItem("team2") || "Team 2";
-        const timer = localStorage.getItem("timer") || 60;
-        const round = 3;
 
-        let score1 = parseInt(localStorage.getItem("score1")) || 0;
-        let score2 = parseInt(localStorage.getItem("score2")) || 0;
-
-        let currentTeam = parseInt(localStorage.getItem("currentTeam")) || 1;
-
-        let currentDifficulty = "easy";
-
-        const easyWords = [
-            "Dog",
-            "Cat",
-            "Pizza",
-            "Swimming",
-            "Sleeping",
-            "Driving",
-            "Running",
-            "Jumping",
-            "Dancing",
-            "Eating",
-            "Drinking",
-            "Crying",
-            "Laughing",
-            "Clapping",
-            "Brushing Teeth",
-            "Cooking",
-            "Fishing",
-            "Reading",
-            "Writing",
-            "Climbing",
-            "Skating",
-            "Singing",
-            "Whistling",
-            "Baby",
-            "Teacher",
-            "Doctor",
-            "Firefighter",
-            "Police Officer",
-            "Basketball",
-            "Soccer",
-            "Baseball",
-            "Volleyball",
-            "Snowman",
-            "Superhero",
-            "Ghost",
-            "Robot",
-            "Alien",
-            "Monster",
-            "Banana",
-            "Apple",
-            "Sandwich",
-            "Ice Cream",
-            "Cake",
-            "Bicycle",
-            "Car",
-            "Train",
-            "Airplane",
-            "Boat",
-            "Camera",
-            "Guitar"
-        ];
-
-        const hardWords = [
-            "Inception",
-            "The Matrix",
-            "Jurassic Park",
-            "Harry Potter",
-            "Titanic",
-            "Spider-Man",
-            "The Dark Knight",
-            "Star Wars",
-            "Lord of the Rings",
-            "Avatar",
-            "Time Travel",
-            "Zombie Apocalypse",
-            "Winning the Lottery",
-            "Breaking a World Record",
-            "Climbing Mount Everest",
-            "Running a Marathon",
-            "Finding Treasure",
-            "Escaping Prison",
-            "Solving a Mystery",
-            "Walking on the Moon",
-            "Surviving a Shark Attack",
-            "Building a Rocket",
-            "Flying a Helicopter",
-            "Defusing a Bomb",
-            "Playing the Violin",
-            "Conducting an Orchestra",
-            "Snowboarding",
-            "Skydiving",
-            "Bungee Jumping",
-            "Roller Coaster",
-            "Haunted House",
-            "Magic Trick",
-            "Becoming Invisible",
-            "Talking to Animals",
-            "Mind Reading",
-            "Super Strength",
-            "Teleportation",
-            "Underwater City",
-            "Robot Uprising",
-            "Alien Invasion",
-            "Lost in the Desert",
-            "Surviving on a Desert Island",
-            "Ancient Egypt",
-            "Medieval Knight",
-            "Pirate Treasure",
-            "Wild West",
-            "Secret Agent",
-            "Space Mission",
-            "Volcano Eruption",
-            "Earthquake"
-        ];
-
-        const wordDisplay = document.getElementById("wordDisplay");
-        const timerDisplay = document.getElementById("timerDisplay");
-        const teamTurn = document.getElementById("teamTurn");
-        const easyBtn = document.getElementById("easyBtn");
-        const hardBtn = document.getElementById("hardBtn");
-        const skipBtn = document.getElementById("skipBtn");
-        const playBtn = document.getElementById("playBtn");
-
-        if (!localStorage.getItem("team1")) {
-            localStorage.setItem("team1", "Team 1");
-        }
-
-        if (!localStorage.getItem("team2")) {
-            localStorage.setItem("team2", "Team 2");
-        }
-
-        timerDisplay.textContent = timer;
-        timerDisplay.style.fontSize = "45px";
-
-        // playBtn.style.display = "none";
-        playBtn.style.fontSize = "75px"
-        playBtn.style.paddingLeft = "25px";
-        playBtn.style.paddingRight = "25px";
-        playBtn.style.paddingTop = "5px";
-        playBtn.style.paddingBottom = "5px";
-
-        skipBtn.style.display = "none";
-        skipBtn.style.fontSize = "75px"
-        skipBtn.style.paddingLeft = "25px";
-        skipBtn.style.paddingRight = "25px";
-        skipBtn.style.paddingTop = "5px";
-        skipBtn.style.paddingBottom = "5px";
-
-        if (currentTeam === 1) {
-            teamTurn.textContent = team1 + "'s Turn";
-        } else {
-            teamTurn.textContent = team2 + "'s Turn";
-        }
-
-        function getRandomWord(list) {
-            return list[Math.floor(Math.random() * list.length)];
-        }
-
-        function showWord() {
-            let word;
-            if (currentDifficulty === "easy") {
-                word = getRandomWord(easyWords);
-            } else {
-                word = getRandomWord(hardWords);
-            }
-            wordDisplay.textContent = word;
-        }
-
-        easyBtn.addEventListener("click", () => {
-            currentDifficulty = "easy";
-            if (currentTeam === 1) {
-                score1++;
-                console.log(team1 + " score:", score1);
-            } else {
-                score2++;
-                console.log(team2 + " score:", score2);
-            }
-
-            localStorage.setItem("score1", score1);
-            localStorage.setItem("score2", score2);
-
-            showWord();
-        });
-
-        hardBtn.addEventListener("click", () => {
-
-            currentDifficulty = "hard";
-
-            if (currentTeam === 1) {
-                score1++;
-                console.log(team1 + " score:", score1);
-            } else {
-                score2++;
-                console.log(team2 + " score:", score2);
-            }
-
-            localStorage.setItem("score1", score1);
-            localStorage.setItem("score2", score2);
-
-            showWord();
-
-        });
-
-        playBtn.addEventListener("click", () => {
-            startTimer();
-
-            playBtn.style.display = "none";
-            skipBtn.style.display = "inline";
-        });
-
-        let timeLeft = timer;
-
-        function startTimer(){
-
-            let timeLeft = timer;
-
-            const interval = setInterval(() => {
-
-                timeLeft--;
-                timerDisplay.textContent = timeLeft;
-
-                if(timeLeft <= 0){
-
-                    clearInterval(interval);
-
-                    if(currentTeam === 1){
-                        score1++;
-                        currentTeam = 2;
-                    }else{
-                        score2++;
-                        currentTeam = 1;
-                    }
-
-                    localStorage.setItem("score1", score1);
-                    localStorage.setItem("score2", score2);
-                    localStorage.setItem("currentTeam", currentTeam);
-
-                    window.location.href = "score.html";
-
-                }
-
-            },1000);
-
-        }
-
-    </script>
-</body>
+    <script type="module" src="./game.js"></script>
+  </body>
 </html>

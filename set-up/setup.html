@@ -1,101 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./setup.css" />
     <title>Charades Set-up</title>
-</head>
-<body>
+  </head>
+  <body>
     <main>
-        <div class="" style="margin-bottom: 50px;">
-            <h1>Set-up</h1>
-        </div>
+      <div class="" style="margin-bottom: 25px">
+        <h1>Set-up</h1>
+      </div>
 
-        <div class="" id="team1Block" style="margin-bottom: 50px;">
-            <label for="">Team 1</label>
-            <input type="text" id="team1" placeholder="Team 1 Name">
-            <button id="team1btn">Submit</button>
-            <div id="team1BlockDisplay"></div>
-        </div>
+      <div class="" id="team1Block" style="margin-bottom: 50px">
+        <label for="">Team 1</label>
+        <input type="text" id="team1" placeholder="Team 1 Name" />
+        <button id="team1btn">Submit</button>
+        <div id="team1BlockDisplay"></div>
+      </div>
 
-        <div class="" id="team2Block" style="margin-bottom: 50px;">
-            <label for="">Team 2</label>
-            <input type="text" id="team2" placeholder="Team 2 Name">
-            <button id="team2btn">Submit</button>
-            <div id="team2BlockDisplay"></div>
-        </div>
+      <div class="" id="team2Block" style="margin-bottom: 50px">
+        <label for="">Team 2</label>
+        <input type="text" id="team2" placeholder="Team 2 Name" />
+        <button id="team2btn">Submit</button>
+        <div id="team2BlockDisplay"></div>
+      </div>
 
-        <div class="" id="timerBlock" style="margin-bottom: 50px;">
-            <p for="appt-time">Choose time (in seconds):</p>
-            <input id="timer" type="number" value = "0"/>
-            <div class="">
-                <button id="timerBtn">Submit</button>
-            </div>
-            <div id="timerBlockDisplay"></div>
-        </div>
+      <div class="" id="timerBlock" style="margin-bottom: 50px">
+        <label for="appt-time">Choose time (in seconds):</label>
+        <input
+          id="timer"
+          type="number"
+          value="30"
+          max="300"
+          step="1"
+          style="width: 50px"
+        />
+        <button id="timerBtn">Submit</button>
+        <div id="timerBlockDisplay"></div>
+      </div>
 
-        <div class="" style="margin-bottom: 25px;">
-            <p for="appt-time">Extra words:</p>
-            <textarea id="extra-words" 
-            rows="5" cols="35"
-            placeholder="Any additional words here"></textarea>
-        </div>
+      <div class="" id="roundBlock" style="margin-bottom: 25px">
+        <label for="appt-time">Number of Rounds:</label>
+        <input
+          id="round"
+          type="number"
+          value="3"
+          max="5"
+          step="1"
+          style="width: 50px"
+        />
+        <button id="roundBtn">Submit</button>
+        <div id="roundBlockDisplay"></div>
+      </div>
 
-        <div class="">
-            <a href="../game/game.html">
-                <button id="gameStart">Time to Start</button>
-            </a>
-        </div>
+      <div class="" style="margin-bottom: 25px">
+        <p for="appt-time">Extra words:</p>
+        <textarea
+          id="extra-words"
+          rows="5"
+          cols="35"
+          placeholder="Any additional words here"
+        ></textarea>
+      </div>
+
+      <div class="">
+        <a href="../game/game.html">
+          <button id="gameStart">Time to Start</button>
+        </a>
+      </div>
     </main>
 
-    <script>
-        const team1 = document.getElementById("team1");
-        const team2 = document.getElementById("team2");
-        const timer = document.getElementById("timer");
-        const extraWords = document.getElementById("extra-words");
-
-        const team1Btn = document.getElementById("team1btn");
-        const team2Btn = document.getElementById("team2btn");
-        const timerBtn = document.getElementById("timerBtn");
-
-        const team1Block = document.getElementById("team1BlockDisplay");
-        const team2Block = document.getElementById("team2BlockDisplay");
-        const timerBlock = document.getElementById("timerBlockDisplay");
-
-        const displayCountdownInMilliSeconds = 1500;
-        const smallestRoundTimeInSeconds = 5
-
-        function displayTextInMilliSeconds(textBlock, message) {
-            textBlock.textContent = message;
-            textBlock.style.color = 'black';
-            // textBlock.style.color = 'lightgreen';
-
-            setTimeout(() => {
-                textBlock.textContent = '';
-            }, displayCountdownInMilliSeconds);
-        }
-
-        team1Btn.addEventListener("click", () => {
-            localStorage.setItem("team1", team1.value);
-            displayTextInMilliSeconds(team1Block, `Success: Team 1 name - ${team1.value}`);
-        })
-
-        team2Btn.addEventListener("click", () => {
-            localStorage.setItem("team2", team2.value);
-            displayTextInMilliSeconds(team2Block, `Success: Team 2 name - ${team2.value}`);
-        })
-
-        timerBtn.addEventListener("click", () => {
-            if (timer.value > smallestRoundTimeInSeconds) {
-                localStorage.setItem("timer", timer.value);
-                displayTextInMilliSeconds(timerBlock, `Success: Timer - ${timer.value} seconds`);
-            } else {
-                displayTextInMilliSeconds(timerBlock, `Please make timer bigger than ${smallestRoundTimeInSeconds} seconds`);
-            }
-            
-        })
-        
-    </script>
-</body>
+    <script src="./setup.js"></script>
+  </body>
 </html>

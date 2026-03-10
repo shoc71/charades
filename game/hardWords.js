@@ -11,6 +11,7 @@ let hardWords = [
     "Avatar",
     "sailing", "carrot", "wrestling", "learning", "gardening", "scolding", "walk the dog", "donut", "Olympics", "journal", "karaoke", "play with toys", "scooter", "helicopter", "park", "dominoes", "hockey", "salt and pepper", "whisk", "mattress", "spring", "toast", "joke", "sauce", "coal", "aircraft", "electricity", "password", "teapot", "nature", "outside", "gingerbread man", "spare", "platypus", "snowboard", "palace", "lawnmower", "deep", "shallow", "America", "food fight", "shopping", "filming", "finger painting", "watering a garden", "feeding animals", "rock climbing", "flying a kite", "chasing tornados", "sewing a button", "scuba diving", "riding a carousel", "baking bread", "flip", "sandcastle", "putting up a tent", "airplane landing", "onion", "skull",
     "Time Travel",
+    "hiccup", "burp", "road rage", "mad scientist", "stinky", "model", "rotten", "mime", "clumsy", "baby shark", "gymnast", "party pooper", "jello", "mosquito", "milking a cow",
     "Zombie Apocalypse",
     "Winning the Lottery",
     "Breaking a World Record",

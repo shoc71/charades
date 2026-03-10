@@ -18,8 +18,15 @@ let score1 = parseInt(localStorage.getItem("score1")) ? parseInt(localStorage.ge
 let score2 = parseInt(localStorage.getItem("score2")) ? parseInt(localStorage.getItem("score2")) : 0;
 let currentTeam = parseInt(localStorage.getItem("currentTeam")) ? parseInt(localStorage.getItem("currentTeam")) : 1;
 let currentDifficulty = "easy";
+let skippedWord = false;
 
-const timerInSeconds = 1000;
+let easyWordsScoredByTeam1Array = localStorage.getItem("easyWordsScoredByTeam1") ? JSON.parse(localStorage.getItem("easyWordsScoredByTeam1")) : [];
+let easyWordsScoredByTeam2Array = localStorage.getItem("easyWordsScoredByTeam2") ? JSON.parse(localStorage.getItem("easyWordsScoredByTeam2")) : [];
+let hardWordsScoredByTeam1Array = localStorage.getItem("hardWordsScoredByTeam1") ? JSON.parse(localStorage.getItem("hardWordsScoredByTeam1")) : [];
+let hardWordsScoredByTeam2Array = localStorage.getItem("hardWordsScoredByTeam2") ? JSON.parse(localStorage.getItem("hardWordsScoredByTeam2")) : []; 
+let skippedWordsArray = localStorage.getItem("skippedWordsArray") ? JSON.parse(localStorage.getItem("skippedWordsArray")) : [];
+
+const timerInSeconds = round == 1 ? 1500 : 1000;
 timerDisplay.textContent = timer;
 timerDisplay.style.fontSize = "45px";
 skipBtn.style.display = "none";
@@ -34,17 +41,37 @@ if (currentTeam === 1) {
     teamTurn.textContent = "Team " + team2 + "'s Turn";
 }
 
+// TODO SS : remove used words (with persistence)
 function getRandomWord(list) {
     return list[Math.floor(Math.random() * list.length)];
 }
 
 function showWord() {
-    let word;
+    let word = "";
     if (currentDifficulty === "easy") {
         word = getRandomWord(easyWords);
+
+        if (currentTeam === 1) {
+            easyWordsScoredByTeam1Array.push(word)
+        } else if (currentTeam === 2) {
+            easyWordsScoredByTeam2Array.push(word)
+        }
+
     } else {
         word = getRandomWord(hardWords);
+
+        if (currentTeam === 1) {
+            hardWordsScoredByTeam1Array.push(word)
+        } else if (currentTeam === 2) {
+            hardWordsScoredByTeam2Array.push(word)
+        }
+
     }
+
+    if (skippedWord) {
+        skippedWordsArray.push(word)
+    }
+
     wordDisplay.textContent = word;
 }
 
@@ -54,10 +81,8 @@ easyBtn.addEventListener("click", () => {
     currentDifficulty = "easy";
     if (currentTeam === 1) {
         score1++;
-        // console.log(team1 + " score:", score1);
     } else {
         score2++;
-        // console.log(team2 + " score:", score2);
     }
 
     localStorage.setItem("score1", score1);
@@ -72,10 +97,8 @@ hardBtn.addEventListener("click", () => {
 
     if (currentTeam === 1) {
         score1 += 3;
-        // console.log(team1 + " score:", score1);
     } else {
         score2 += 3;
-        // console.log(team2 + " score:", score2);
     }
 
     localStorage.setItem("score1", score1);
@@ -94,7 +117,9 @@ playBtn.addEventListener("click", () => {
 });
 
 skipBtn.addEventListener("click", () => {
+    skippedWord = true;
     showWord();
+    skippedWord = false;
 });
 
 function startTimer() {
@@ -110,15 +135,23 @@ function startTimer() {
 
             if (currentTeam === 1) {
                 score1++;
+                localStorage.setItem("easyWordsScoredByTeam1", JSON.stringify(easyWordsScoredByTeam1Array));
+                localStorage.setItem("hardWordsScoredByTeam1", JSON.stringify(hardWordsScoredByTeam1Array));
                 currentTeam = 2;
+                
             } else {
-                score2++;
+                score2++;                
+                localStorage.setItem("easyWordsScoredByTeam2", JSON.stringify(easyWordsScoredByTeam2Array));
+                localStorage.setItem("hardWordsScoredByTeam2", JSON.stringify(hardWordsScoredByTeam2Array));
                 currentTeam = 1;
                 round--;
             }
 
             localStorage.setItem("score1", score1);
             localStorage.setItem("score2", score2);
+
+            localStorage.setItem("skippedWordsArray", JSON.stringify(skippedWordsArray));
+
             localStorage.setItem("round", round);
             localStorage.setItem("currentTeam", currentTeam);
 

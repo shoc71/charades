@@ -31,7 +31,7 @@ team1Btn.addEventListener("click", () => {
     localStorage.setItem("team1", team1.value);
     displayTextInMilliSeconds(
         team1Block,
-        `Success: Team 1 name - ${team1.value}`,
+        `Success: Team 1 name - {${team1.value}}`,
     );
 });
 
@@ -39,7 +39,7 @@ team2Btn.addEventListener("click", () => {
     localStorage.setItem("team2", team2.value);
     displayTextInMilliSeconds(
         team2Block,
-        `Success: Team 2 name - ${team2.value}`,
+        `Success: Team 2 name - {${team2.value}}`,
     );
 });
 
@@ -48,7 +48,7 @@ roundBtn.addEventListener("click", () => {
         localStorage.setItem("round", round.value);
         displayTextInMilliSeconds(
             roundBlock,
-            `Success: Round - ${round.value}`,
+            `Success: Round - {${round.value}}`,
         );
     } else {
         displayTextInMilliSeconds(
@@ -63,7 +63,7 @@ timerBtn.addEventListener("click", () => {
         localStorage.setItem("timer", timer.value);
         displayTextInMilliSeconds(
             timerBlock,
-            `Success: Timer - ${timer.value} seconds`,
+            `Success: Timer - {${timer.value} seconds}`,
         );
     } else {
         displayTextInMilliSeconds(

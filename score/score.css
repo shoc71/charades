@@ -10,3 +10,21 @@ body {
     font-size: 24px;
     cursor: pointer;
 }
+
+#dataScoreTable {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    border: 1px solid black;
+    margin-top: 50px;
+    border-collapse: collapse;
+}
+
+#dataScoreTable th {
+    border: 1px solid black;
+}
+
+#dataScoreTable td {
+    text-align: center;
+    border-right: 1px solid black;
+}

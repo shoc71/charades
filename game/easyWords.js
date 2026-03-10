@@ -15,6 +15,7 @@ let easyWords = [
     "Clapping",
     "Brushing Teeth",
     "Cooking",
+    "cough", "sneeze", "laugh", "swim", "run", "jump", "piano", "baseball", "football", "guitar", "basketball", "microphone", "snake", "rabbit", "horse", "trip", "round", "stake", "state", "cowboy", "thief", "roller blading" , "half", "quarter", "light bulb", "door", "backbone", "treasure", "pirate", "whistle", "photograph", "key", "frog", "pinwheel", "battery", "song", "bomb", "garbage", "ski", "skateboard", "queen", "computer", "hot dog", "ipad", "cake", "mailman", "bicycle", "lightsaber", "bowtie", "wax", "music", "bowling", "ironing", "motorcycle", "hopscotch", "making pizza", "washing", "showering", "soccer", "football", "hailing a taxi", "raking leaves",
     "Fishing",
     "Reading",
     "Writing",

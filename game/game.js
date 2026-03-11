@@ -1,7 +1,9 @@
 import easyWords from "./easyWords.js";
 import hardWords from "./hardWords.js";
+import sfx from "../assets/music/sfx.js";
 
 const body = document.querySelector("body");
+const defaultSound =new Audio("../assets/music/nice-ding.mp3");
 
 const team1 = localStorage.getItem("team1") ? localStorage.getItem("team1") : "Team 1";
 const team2 = localStorage.getItem("team2") ? localStorage.getItem("team2") : "Team 2";
@@ -77,6 +79,20 @@ function showWord() {
     }
 
     wordDisplay.textContent = word;
+    wordDisplay.style.border = "2px solid black";
+}
+
+export function playSfx() {
+
+    if (Math.random() > 0.1) {
+        defaultSound.currentTime = 0;
+        defaultSound.play();
+        return;
+    }
+
+    const s = sfx[Math.floor(Math.random() * sfx.length)];
+    s.audio.currentTime = 0;
+    s.audio.play();
 }
 
 easyBtn.addEventListener("click", () => {
@@ -92,6 +108,7 @@ easyBtn.addEventListener("click", () => {
     localStorage.setItem("score1", score1);
     localStorage.setItem("score2", score2);
 
+    playSfx();
     showWord();
 });
 
@@ -108,6 +125,7 @@ hardBtn.addEventListener("click", () => {
     localStorage.setItem("score1", score1);
     localStorage.setItem("score2", score2);
 
+    playSfx();
     showWord();
 });
 
@@ -118,12 +136,14 @@ playBtn.addEventListener("click", () => {
     skipBtn.style.display = "inline";
     easyBtn.style.display = "inline";
     hardBtn.style.display = "inline";
+    playSfx();
 });
 
 skipBtn.addEventListener("click", () => {
     skippedWord = true;
     showWord();
     skippedWord = false;
+    playSfx();
 });
 
 function startTimer() {

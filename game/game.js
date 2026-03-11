@@ -1,6 +1,8 @@
 import easyWords from "./easyWords.js";
 import hardWords from "./hardWords.js";
 
+const body = document.querySelector("body");
+
 const team1 = localStorage.getItem("team1") ? localStorage.getItem("team1") : "Team 1";
 const team2 = localStorage.getItem("team2") ? localStorage.getItem("team2") : "Team 2";
 const timer = localStorage.getItem("timer") || 30;
@@ -37,8 +39,10 @@ let gamePaused = localStorage.setItem("gamePaused", true);
 
 if (currentTeam === 1) {
     teamTurn.textContent = "Team " + team1 + "'s Turn";
+    body.style.backgroundColor = "rgba(255, 1, 1, 0.481)";
 } else {
     teamTurn.textContent = "Team " + team2 + "'s Turn";
+    body.style.backgroundColor = "rgba(1, 90, 255, 0.59)";
 }
 
 // TODO SS : remove used words (with persistence)

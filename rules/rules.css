@@ -1,0 +1,18 @@
+body {
+    background-color: rgb(194, 203, 119);
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+
+.container {
+    width: 50%;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+}

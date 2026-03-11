@@ -1,6 +1,9 @@
 body {
     background-color: rgb(253, 170, 184);
+    display: flex;
     text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
 #start {

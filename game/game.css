@@ -3,6 +3,10 @@ body {
     text-align: center;
 }
 
+.disable-double-tap-zoom {
+    touch-action: manipulation;
+}
+
 #playBtn {
     font-size: 75px;
     padding: 5px 25px;

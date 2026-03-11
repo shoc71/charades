@@ -1,4 +1,4 @@
-let hardWords = [
+hardWords = [
     "Aircraft",
     "Airplane Landing",
     "Alien Invasion",
@@ -125,6 +125,11 @@ let hardWords = [
     "Winning The Lottery",
     "Wrestling",
     "Zombie Apocalypse"
-];
+]
 
-export default hardWords;
+words = set([word.title() for word in hardWords])
+
+sorted_hardWords = sorted(words)
+
+for word in sorted_hardWords:
+    print(f"\"{word.title()}\",")

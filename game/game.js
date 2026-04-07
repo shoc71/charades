@@ -31,16 +31,16 @@ let hardWordsScoredByTeam2Array = localStorage.getItem("hardWordsScoredByTeam2")
 let skippedWordsArray = localStorage.getItem("skippedWordsArray") ? JSON.parse(localStorage.getItem("skippedWordsArray")) : [];
 let additionalWords = localStorage.getItem("additionalWords") ? JSON.parse(localStorage.getItem("additionalWords")) : [];
 
-let wordsPoolEasy = [...easyWords];
-let wordsPoolHard = [...additionalWords, ...hardWords];
+let wordsPoolEasy = new Set([...easyWords]);
+let wordsPoolHard = new Set([...additionalWords, ...hardWords]);
 
-const filteredWordsPoolEasy = wordsPoolEasy.filter(
+const filteredWordsPoolEasy = Array.from(wordsPoolEasy).filter(
     word => !easyWordsScoredByTeam1Array.includes(word) &&
         !easyWordsScoredByTeam2Array.includes(word) &&
         !skippedWordsArray.includes(word)
 );
 
-const filteredWordsPoolHard = wordsPoolHard.filter(
+const filteredWordsPoolHard = Array.from(wordsPoolHard).filter(
     word => !hardWordsScoredByTeam1Array.includes(word) &&
         !hardWordsScoredByTeam2Array.includes(word) &&
         !skippedWordsArray.includes(word) &&

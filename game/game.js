@@ -3,7 +3,7 @@ import hardWords from "./hardWords.js";
 import sfx from "../assets/music/sfx.js";
 
 const body = document.querySelector("body");
-const defaultSound =new Audio("../assets/music/nice-ding.mp3");
+const defaultSound = new Audio("../assets/music/nice-ding.mp3");
 
 const team1 = localStorage.getItem("team1") ? localStorage.getItem("team1") : "Team 1";
 const team2 = localStorage.getItem("team2") ? localStorage.getItem("team2") : "Team 2";
@@ -27,8 +27,25 @@ let skippedWord = false;
 let easyWordsScoredByTeam1Array = localStorage.getItem("easyWordsScoredByTeam1") ? JSON.parse(localStorage.getItem("easyWordsScoredByTeam1")) : [];
 let easyWordsScoredByTeam2Array = localStorage.getItem("easyWordsScoredByTeam2") ? JSON.parse(localStorage.getItem("easyWordsScoredByTeam2")) : [];
 let hardWordsScoredByTeam1Array = localStorage.getItem("hardWordsScoredByTeam1") ? JSON.parse(localStorage.getItem("hardWordsScoredByTeam1")) : [];
-let hardWordsScoredByTeam2Array = localStorage.getItem("hardWordsScoredByTeam2") ? JSON.parse(localStorage.getItem("hardWordsScoredByTeam2")) : []; 
+let hardWordsScoredByTeam2Array = localStorage.getItem("hardWordsScoredByTeam2") ? JSON.parse(localStorage.getItem("hardWordsScoredByTeam2")) : [];
 let skippedWordsArray = localStorage.getItem("skippedWordsArray") ? JSON.parse(localStorage.getItem("skippedWordsArray")) : [];
+let additionalWords = localStorage.getItem("additionalWords") ? JSON.parse(localStorage.getItem("additionalWords")) : [];
+
+let wordsPoolEasy = [...easyWords];
+let wordsPoolHard = [...additionalWords, ...hardWords];
+
+const filteredWordsPoolEasy = wordsPoolEasy.filter(
+    word => !easyWordsScoredByTeam1Array.includes(word) &&
+        !easyWordsScoredByTeam2Array.includes(word) &&
+        !skippedWordsArray.includes(word)
+);
+
+const filteredWordsPoolHard = wordsPoolHard.filter(
+    word => !hardWordsScoredByTeam1Array.includes(word) &&
+        !hardWordsScoredByTeam2Array.includes(word) &&
+        !skippedWordsArray.includes(word) &&
+        !additionalWords.includes(word)
+);
 
 const timerInSeconds = round == 1 ? 1500 : 1000;
 timerDisplay.textContent = timer;
@@ -55,7 +72,7 @@ function getRandomWord(list) {
 function showWord() {
     let word = "";
     if (currentDifficulty === "easy") {
-        word = getRandomWord(easyWords);
+        word = getRandomWord(filteredWordsPoolEasy);
 
         if (currentTeam === 1) {
             easyWordsScoredByTeam1Array.push(word)
@@ -64,7 +81,7 @@ function showWord() {
         }
 
     } else {
-        word = getRandomWord(hardWords);
+        word = getRandomWord(filteredWordsPoolHard);
 
         if (currentTeam === 1) {
             hardWordsScoredByTeam1Array.push(word)
@@ -162,9 +179,9 @@ function startTimer() {
                 localStorage.setItem("easyWordsScoredByTeam1", JSON.stringify(easyWordsScoredByTeam1Array));
                 localStorage.setItem("hardWordsScoredByTeam1", JSON.stringify(hardWordsScoredByTeam1Array));
                 currentTeam = 2;
-                
+
             } else {
-                score2++;                
+                score2++;
                 localStorage.setItem("easyWordsScoredByTeam2", JSON.stringify(easyWordsScoredByTeam2Array));
                 localStorage.setItem("hardWordsScoredByTeam2", JSON.stringify(hardWordsScoredByTeam2Array));
                 currentTeam = 1;

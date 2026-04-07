@@ -72,3 +72,12 @@ timerBtn.addEventListener("click", () => {
         );
     }
 });
+
+const gameStartBtn = document.getElementById("gameStart");
+gameStartBtn.addEventListener("click", () => {
+    let additionalWords = extraWords.value;
+    additionalWords = additionalWords.split(/[\n,]+/).map(word => word.trim());
+    additionalWords = additionalWords.filter(word => word.trim() !== "");
+    localStorage.setItem("additionalWords", JSON.stringify(additionalWords));
+    window.location.href = "../game/game.html";
+});

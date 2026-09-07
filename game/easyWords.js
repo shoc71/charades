@@ -19,7 +19,7 @@ let easyWords = [
     "jesus",
     "screwdriver",
     "india",
-    "moldova"
+    "moldova",
     "driving",
     "boo",
     "surfing",

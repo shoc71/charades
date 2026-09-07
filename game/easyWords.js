@@ -35,7 +35,7 @@ let easyWords = [
     "shrink",
     "sad",
     "gossip",
-    "spying"
+    "spying",
     "shame",
     "smell",
     "slap",

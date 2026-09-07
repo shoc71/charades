@@ -1,6 +1,6 @@
 let easyWords = [
     "python",
-    "song"
+    "song",
     "katy perry",
     "president",
     "discord",

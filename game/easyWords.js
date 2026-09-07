@@ -1,5 +1,11 @@
 let easyWords = [
     "Typing",
+    "graduation",
+    "Among Us",
+    "slime rancher",
+    "computer rat",
+    "pleasant smell",
+    "pillow",
     "Vacuuming",
     "Walking Dog",
     "Waving",
